@@ -1,0 +1,14 @@
+{
+    "type": "mongodb",
+    "host": "ds241258.mlab.com",
+    "port": 41258,
+    "username": "nikhil",
+    "password": "nikhil001",
+    "database": "pizza-db",
+    "synchronize": true,
+    "logging": true,
+    "useUnifiedTopology": true,
+    "entities": [
+        "src/entity/*.*"
+    ]
+}
