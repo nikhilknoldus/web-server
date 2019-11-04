@@ -9,19 +9,24 @@ export class RegisterUser {
     return "hello11";
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User || String)
   async register(
     @Arg("name") name: string,
     @Arg("password") password: string,
-    @Arg("email") email: string,
-    @Arg("role") role: string
+    @Arg("email") email: string
   ) {
+    await User.findOne({ where: { email } }).then(user => {
+      if (user) {
+        return null;
+      }
+    });
+
     const hashPassword = await bcrypt.hash(password, 13);
     const user = await User.create({
       name: name,
       password: hashPassword,
       email: email,
-      role: role
+      role: "user"
     }).save();
 
     return user;

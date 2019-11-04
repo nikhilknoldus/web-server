@@ -4,12 +4,13 @@ import Express from "express";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
 import { RegisterUser } from "./modules/user/Register";
+import { LoginUser } from "./modules/user/login";
 
 const server = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterUser]
+    resolvers: [RegisterUser, LoginUser]
   });
 
   //3
@@ -22,7 +23,7 @@ const server = async () => {
   apolloServer.applyMiddleware({ app });
 
   //2
-  app.listen(4000, () => {
+  app.listen(4001, () => {
     console.log("PIZZA server started on localhost:4000/graphql");
   });
 };
