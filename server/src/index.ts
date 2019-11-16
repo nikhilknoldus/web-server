@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
@@ -14,7 +15,10 @@ const server = async () => {
   });
 
   //3
-  const apolloServer = new ApolloServer({ schema });
+  const apolloServer = new ApolloServer({
+    schema,
+    context: ({ req, res }) => ({ req, res })
+  });
 
   //1
   const app = Express();
@@ -23,8 +27,8 @@ const server = async () => {
   apolloServer.applyMiddleware({ app });
 
   //2
-  app.listen(4001, () => {
-    console.log("PIZZA server started on localhost:4000/graphql");
+  app.listen(4002, () => {
+    console.log("PIZZA server started on localhost:4002/graphql");
   });
 };
 
